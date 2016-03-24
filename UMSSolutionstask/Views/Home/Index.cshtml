@@ -1,0 +1,163 @@
+﻿<div class="container" ng-controller="angcontroller">
+    <div class="divider" style="padding-top:20px;">
+        <div class="form-inline">
+            <div class="col-sm-3">
+                <label> Select the Product </label>
+                <select ng-options="p.Pid as p.Pname for p in ProductList" ng-model="Pid" ng-change="Getsingleproduct()">
+                    <option value="">Select</option>
+                </select>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="col-sm-2">
+                    <label class="control-label"> Rate </label>
+                </div>
+                <div class="col-sm-5">
+                    <input type="number" ng-model="product.PRate" class="form-control" placeholder="Rate" />
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="col-sm-3">
+                    <label class="control-label">Quantity</label>
+                </div>
+                <div class="col-sm-5">
+                    <input type="number" class="form-control" ng-model="qua" ng- placeholder="Qua" />
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="col-sm-3">
+                    <label class="control-label">Amount</label>
+                </div>
+                <div class="col-sm-5">
+                    <input type="number" readonly class="form-control" ng-model="amount" ng-value="qua*product.PRate" placeholder="Amo" />
+                </div>
+            </div>
+        </div>
+        <div class="form-inline" style="padding-top:50px;">
+            <div class="col-sm-3">
+                <div class="col-sm-3">
+                    <label class="control-label"> Discount</label>
+                </div>
+                <div class="col-sm-5">
+                    <input type="number" ng-model="product.Pdis" class="form-control" placeholder="per" />
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="col-sm-2">
+                    <label class="control-label">Tax</label>
+                </div>
+                <div class="col-sm-5">
+                    <input type="number" ng-model="product.Ptax" class="form-control" placeholder="tax" />
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="col-sm-3">
+                    <label class="control-label"> Net Amount</label>
+                </div>
+                <div class="col-sm-6">
+                    <input type="number" readonly class="form-control" ng-model="netamount" ng-value="netamount.result()" />
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="col-sm-6">
+                    <input type="submit" value="Add To List" ng-click="submit()" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <br /><br /><br /><br />
+    <div class="form-inline">
+        <div class="col-sm-offset-2">
+            <div class="col-sm-4">
+                <span style="font-size:larger">  Customer Id :</span> &nbsp;&nbsp;{{Invoiceid.Cusid}}
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <span style="font-size:larger">   Invoice Id :</span>&nbsp;&nbsp;{{Invoiceid.ivid}}
+        </div>
+    </div>
+    <br /><br />
+    <div class="col-sm-offset-1">
+        <div class="col-sm-2">
+            <span style="font-size:medium"> Product Name</span>
+        </div>
+        <div class="col-sm-2">
+            <span style="font-size:medium">Rate</span>
+        </div>
+        <div class="col-sm-1">
+            <span style="font-size:medium">Quantity</span>
+        </div>
+        <div class="col-sm-1">
+            <span style="font-size:medium"> Amount</span>
+        </div>
+        <div class="col-sm-1">
+            <span style="font-size:medium">Discount</span>
+        </div>
+        <div class="col-sm-1">
+            <span style="font-size:medium">Tax</span>
+        </div>
+        <div class="col-sm-2">
+            <span style="font-size:medium">Net Pay</span>
+        </div>
+        <div class="col-sm-1">
+            <span style="font-size:medium">Remove</span>
+        </div>
+        <div ng-repeat="p in produdccc" class="table-responsive">
+
+            <div class="col-sm-2">
+                <span style="font-size:small">{{p.Pname}}</span>
+            </div>
+            <div class="col-sm-2">
+                <span style="font-size:small">{{p.Rate}}</span>
+            </div>
+            <div class="col-sm-1">
+                <span style="font-size:small">{{p.Quantity}}</span>
+            </div>
+            <div class="col-sm-1">
+                <span style="font-size:small"> {{p.Amount}}</span>
+            </div>
+            <div class="col-sm-1">
+                <span style="font-size:small">{{p.Pdis}}</span>
+            </div>
+            <div class="col-sm-1">
+                <span style="font-size:small">{{p.Ptax}}</span>
+            </div>
+            <div class="col-sm-2">
+                <span style="font-size:small">{{p.Net|number:2}}</span>
+            </div>
+            <div class="col-sm-1">
+                <span style="font-size:small"><input type="button" value="X" class=" btn-danger" ng-click="removeitem(p)" /></span>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="form-inline col-sm-offset-4" style="padding-top:150px;">
+        <div class="col-sm-4">
+            <span style="font-size:larger"> Total Product</span> &nbsp;&nbsp;   {{Count}}
+        </div>
+        <div class="col-sm-4">
+            <span style="font-size:larger">  Total Amount</span> &nbsp;&nbsp; {{total | number:2}}
+        </div>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Get Customer Id</button>
+    </div>
+
+    <div class="modal fade bs-example-modal-sm" role="dialog" aria-labelledby="mySmallModalLabel">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header text-center">Customer ID</div>
+                <div class="modal-body">
+                    <div class="col-sm-offset-3">
+                        <input type="number" class="form-control" ng-model="cusid" ng-blur="textchanged()" placeholder="Enter the Customer ID" />
+                        <br />
+                        Enable Payment :<input type="checkbox" ng-model="showbutton" />
+                        <input type="button" class="col-sm-offset-3 btn btn-success" ng-show="showbutton" ng-click="Save()" data-dismiss="modal" value="Payment" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
